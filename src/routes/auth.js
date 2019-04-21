@@ -47,9 +47,11 @@ router.post('/signin', (req, res, next) => {
                 res.json({ success: true, token: createToken(user) })
                 return next()
             }
+            res.json({ success: false, message: 'Invalid credentials' })
+        } else {
+            res.json({ success: false, message: 'No user found' })
         }
 
-        res.json({ success: false, message: 'Invalid credentials' })
     })
 })
 

@@ -2,6 +2,7 @@ import express from 'express'
 import mongoose from 'mongoose'
 import dotenv from 'dotenv'
 import bodyParser from 'body-parser'
+import cors from 'cors'
 
 import authRoutes from './routes/auth'
 
@@ -14,6 +15,8 @@ mongoose.connect(process.env.MONGO_DB_URI, { useNewUrlParser: true }, err => {
         console.log(err)
     else console.log('Connected to DB')
 })
+
+app.use(cors())
 
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended: true}))
