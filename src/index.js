@@ -5,6 +5,7 @@ import bodyParser from 'body-parser'
 import cors from 'cors'
 
 import authRoutes from './routes/auth'
+import userRoutes from './routes/user'
 
 const app = express()
 
@@ -26,5 +27,6 @@ app.use('/test', (req, res) => {
 })
 
 app.use('/auth', authRoutes)
+app.use('/user', userRoutes)
 
 app.listen(process.env.PORT || 8080, () => console.log(`Listening on port ${process.env.PORT ? process.env.PORT : '8080'}`))

@@ -2,7 +2,6 @@ import express from 'express'
 import jwt from 'jsonwebtoken'
 
 import User from '../models/user'
-import { resolve } from 'dns';
 
 const router = express.Router()
 
@@ -69,7 +68,7 @@ router.post('/signup', (req, res, next) => {
             user.save(function (err, user) {
                 if (err) return next(err)
                 var token = createToken(user)
-                res.json({ succes: true, token: token })
+                res.json({ success: true, token: token })
             })
         }
     })
