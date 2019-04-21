@@ -16,4 +16,12 @@ router.post('/', verifyToken, (req, res, next) => {
     })
 })
 
+router.get('/top-players', verifyToken, (req, res, next) => {
+    User.find({}).sort({score: -1}).limit(5).exec(function(err, users){
+        if (err) 
+            return next(err);
+        res.json({success: true, data: users})
+    })
+})
+
 export default router
