@@ -10,8 +10,20 @@ function createToken(user_name){
     return token
 }
 
-router.post('/signin', (req, res) => {
-    
+router.post('/signin', (req, res, next) => {
+    User.findOne({user_name: req.body.user_name}, (err, user) => {
+        if (err)
+            return next(err)
+
+        if (user) {
+            if(user.comparePassword(req.body.password)){
+                res.json({success: true, token: createToken(user.user_name)})
+                return next()
+            }
+        }
+
+        res.json({success: false, message: 'Invalid credentials'})
+    })
 })
 
 router.post('/signup', (req, res, next) => {
