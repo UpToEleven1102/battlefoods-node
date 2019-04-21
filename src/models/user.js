@@ -7,6 +7,7 @@ const Schema = mongoose.Schema
 const UserSchema = new Schema({
     user_name: {type: String, unique: true, lowercase: true},
     password: String,
+    score: Number,
 })
 
 UserSchema.pre('save', function(next){

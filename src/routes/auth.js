@@ -14,11 +14,11 @@ function createToken(user) {
 export function verifyToken(req, res, next) {
     var token = req.headers['authorization'];
     if (!token)
-        return res.status(403).send({ auth: false, message: 'No token provided.' });
+        return res.status(403).send({ success: false, message: 'No token provided.' });
 
     jwt.verify(token, process.env.SECRET_KEY, function (err, decoded) {
         if (err)
-            return res.status(500).send({ auth: false, message: 'Failed to authenticate token.' });
+            return res.status(500).send({ success: false, message: 'Failed to authenticate token.' });
 
         req.userId = decoded.id;
         next();
@@ -63,6 +63,7 @@ router.post('/signup', (req, res, next) => {
             let user = new User()
             user.user_name = req.body.user_name
             user.password = req.body.password
+            user.score = 0
             user.save(function (err, user) {
                 if (err) return next(err)
                 var token = createToken(user)
